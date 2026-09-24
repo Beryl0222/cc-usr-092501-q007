@@ -1,0 +1,9 @@
+{
+  "event_id": "092501-007-sample-001",
+  "event_type": "PROMISE_PUBLISHED",
+  "aggregate_type": "marketing_promise",
+  "aggregate_id": "weight_camp_safety_case-001",
+  "occurred_at": "2026-09-24T10:00:00+08:00",
+  "version": 1,
+  "summary": "登记减重训练风险闭环的一条领域事实"
+}
