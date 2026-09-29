@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "减重训练风险闭环领域事件",
+  "description": "承诺与争议处置后端的事件信封契约。所有事实只追加；业务修订以新事件表达，原始记录继续用于追溯。落盘时另由 src/journal.py 包装 seq/prev_digest/digest 形成哈希链。",
   "type": "object",
   "required": [
     "event_id",
@@ -14,16 +15,37 @@
   "properties": {
     "event_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "全局唯一；同一标识完整重传保持一次，内容不同即拒绝并锁案"
     },
     "event_type": {
       "type": "string",
       "enum": [
         "PROMISE_PUBLISHED",
         "CONTRACT_SIGNED",
+        "PAYMENT_PLAN_FROZEN",
+        "SESSION_DELIVERED",
+        "PAYMENT_RECEIVED",
+        "MEASUREMENT_RECORDED",
+        "SAFETY_INCIDENT_RECORDED",
+        "STAFF_NOTE_ADDED",
+        "STAFF_REGISTERED",
+        "STAFF_DEPARTED",
+        "WITHDRAWAL_RECORDED",
         "EVIDENCE_HELD",
+        "DISPUTE_OPENED",
+        "DISPUTE_TRANSFERRED",
+        "CASE_LOCKED",
+        "MEDIATION_NOTE_ADDED",
+        "REFUND_CANDIDATE_CALCULATED",
         "REFUND_APPROVED",
-        "REGULATORY_RESPONSE_FILED"
+        "REFUND_SETTLED",
+        "SETTLEMENT_REVERSAL",
+        "SETTLEMENT_TOPUP",
+        "REGULATORY_INVESTIGATION_OPENED",
+        "REGULATORY_INVESTIGATION_CLOSED",
+        "REGULATORY_RESPONSE_FILED",
+        "CASE_CLOSED"
       ]
     },
     "aggregate_type": {
@@ -31,6 +53,9 @@
       "enum": [
         "marketing_promise",
         "service_contract",
+        "safety_incident",
+        "staff",
+        "evidence",
         "dispute_case",
         "refund_entry"
       ]
@@ -45,11 +70,16 @@
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "description": "同一聚合上单调递增的正整数"
     },
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "payload": {
+      "type": "object",
+      "description": "事件业务负载；冻结材料统一带来源(source)、指纹(fingerprint/receipt_fingerprint)与有效期(valid_from/valid_until/retention_until)"
     }
   },
   "additionalProperties": true
