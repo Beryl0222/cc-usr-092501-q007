@@ -20,19 +20,46 @@
       "type": "string",
       "enum": [
         "PROMISE_PUBLISHED",
+        "PROMISE_RETIRED",
+        "STAFF_REGISTERED",
+        "STAFF_DEACTIVATED",
         "CONTRACT_SIGNED",
+        "CONTRACT_NOTE_APPENDED",
+        "INSTALLMENT_RECEIVED",
+        "MEASUREMENT_RECORDED",
+        "SAFETY_INCIDENT_RECORDED",
+        "SERVICE_SESSION_RECORDED",
+        "LEAVE_REQUESTED",
+        "WITHDRAWAL_REQUESTED",
+        "CASE_OPENED",
+        "RECEIPT_REGISTERED",
+        "RECEIPT_TAINTED",
         "EVIDENCE_HELD",
+        "CASE_LOCKED",
+        "CASE_TRANSFERRED",
+        "MEDIATION_RECORDED",
+        "REFUND_CANDIDATE_COMPUTED",
         "REFUND_APPROVED",
-        "REGULATORY_RESPONSE_FILED"
+        "REFUND_INSTALLMENT_PAID",
+        "REFUND_PAYMENT_REVERSED",
+        "REFUND_TOPUP_PAID",
+        "SETTLEMENT_CLOSED",
+        "REGULATORY_INVESTIGATION_OPENED",
+        "REGULATORY_RESPONSE_FILED",
+        "REGULATORY_INVESTIGATION_CLOSED",
+        "MONTHLY_RECONCILIATION_RUN"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "marketing_promise",
+        "staff_member",
         "service_contract",
         "dispute_case",
-        "refund_entry"
+        "evidence_receipt",
+        "refund_entry",
+        "audit_report"
       ]
     },
     "aggregate_id": {
@@ -50,6 +77,17 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "actor": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "required": ["id", "role"]
+    },
+    "data": {
+      "type": "object"
     }
   },
   "additionalProperties": true
